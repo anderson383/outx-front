@@ -1,0 +1,18 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import 'scss/partial/fonts';
+@import 'scss/partial/typography';
+@import 'scss/modules/var';
+@import 'scss/modules/mixins';
+
+
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+
+
