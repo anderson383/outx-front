@@ -34,11 +34,19 @@ import type {
 import {authOptions} from './api/auth/[...nextauth]';
 import { getCsrfToken } from 'next-auth/react';
 import { getServerSession } from 'next-auth';
+import Head from 'next/head';
 import LoginForm from '@/components/features/login-form/login-form';
 
 export default function SignIn({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <LoginForm id='log' name='login' csrfToken={csrfToken || ''} />
+    <>
+      <Head>
+        <title>
+            Login | Outx
+        </title>
+      </Head>
+      <LoginForm id='log' name='login' csrfToken={csrfToken || ''} />
+    </>
   );
 }
 

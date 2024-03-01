@@ -1,3 +1,3 @@
 export interface ResponseData<T> {
-  results: T
+  data: T
 }

@@ -16,11 +16,11 @@ export const authOptions:AuthOptions = {
       name: 'Credentials Deyli',
       credentials: {
         password: {
-          label: 'Password',
+          label: 'password',
           type: 'password'
         },
         username: {
-          label: 'Username',
+          label: 'username',
           type: 'text'
         }
       },
@@ -28,7 +28,6 @@ export const authOptions:AuthOptions = {
         // Add logic here to look up the user from the credentials supplied
         try {
           const authRepository:AuthRepository = repositoryContainer.get(TYPES.AUTH_REPOSITORY);
-
           const {
             accessToken, refreshToken
           } = await authRepository.login({

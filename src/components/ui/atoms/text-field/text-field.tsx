@@ -1,6 +1,6 @@
 import styles from './text-field.module.scss';
 import { useField } from 'formik';
-
+import { TextField as TextFieldMaterial } from '@mui/material';
 interface TextFieldProps {
   name: string;
   placeholder?: string;
@@ -23,17 +23,30 @@ export const TextField:React.FC<TextFieldProps> = ({
   const [field, meta, helpers] = useField(name);
 
   return (
-    <div className={styles.text_field}>
-      <input
-        name={name}
-        className={`${ className }`}
-        type={type}
-        value={field.value}
-        onChange={value => helpers.setValue(value.target.value)}
-        placeholder={placeholder}
-        {...props}
-      />
-      {!disableError && meta.error && <span>{meta.error}</span>}
-    </div>
+
+    <TextFieldMaterial
+      placeholder={placeholder}
+      type={type}
+      className={className}
+      error={Boolean(!disableError && meta.error ? true : false)}
+      fullWidth
+      helperText={meta.error && meta.error}
+      label={label}
+      {...props}
+      {...field}
+    />
+
+  // <div className={styles.text_field}>
+  //   <input
+  //     name={name}
+  //     className={`${ className }`}
+  //     type={type}
+  //     value={field.value}
+  //     onChange={value => helpers.setValue(value.target.value)}
+  //     placeholder={placeholder}
+  //     {...props}
+  //   />
+  //   {!disableError && meta.error && <span>{meta.error}</span>}
+  // </div>
   );
 };

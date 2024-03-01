@@ -11,7 +11,7 @@ export class AuthService implements AuthRepository {
     try {
       const {data} = await axiosInstance.post<ResponseData<DataLogin>>('/auth/sign-in', authCredentials);
 
-      return data.results;
+      return data.data;
     } catch (err:any) {
       console.warn(err, 'error axios', err.message);
     }

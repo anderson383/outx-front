@@ -1,135 +1,318 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { useState } from 'react';
+
+import {FeatureCollection} from 'geojson';
+import mapboxgl from 'mapbox-gl';
+import styles from './mapbox.module.scss';
+
+// import Map from 'react-map-gl/maplibre';
+import {
+  useEffect, useRef, useState
+} from 'react';
 
 // import {GeolocateControl} from 'react-map-gl';
-import Map, {
-  CircleLayer, GeolocateControl, Layer, Marker, Popup, Source
-} from 'react-map-gl';
-import type {FillLayer} from 'react-map-gl';
-import type {FeatureCollection} from 'geojson';
 
 // const Map = ReactMapboxGl({accessToken:
 //     'pk.eyJ1IjoidGhpc2FuZGVyc29uIiwiYSI6ImNsbGw5c2hjZDIxYW8zcmxndXF2MmtvbmEifQ.kxiyFA4JSmXwbErD1l8B0w',
 //   });
-const parkLayer: FillLayer = {
-  id: 'landuse_park',
-  type: 'fill',
-  source: 'mapbox',
-  'source-layer': 'landuse',
-  filter: ['==', 'class', 'park'],
-  paint: {'fill-color': '#4E3FC8'}
-};
+// const parkLayer: FillLayer = {
+//   id: 'landuse_park',
+//   type: 'fill',
+//   source: 'mapbox',
+//   'source-layer': 'landuse',
+//   filter: ['==', 'class', 'park'],
+//   paint: {'fill-color': '#4E3FC8'}
+// };
 
-const geojson: FeatureCollection = {
-  type: 'FeatureCollection',
-  features: [
+const stores:FeatureCollection = {
+  'type': 'FeatureCollection',
+  'features': [
     {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-122.4, 37.8]
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.034084142948,
+          38.909671288923
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(202) 234-7336',
+        'phone': '2022347336',
+        'address': '1471 P St NW',
+        'city': 'Washington DC',
+        'country': 'United States',
+        'crossStreet': 'at 15th St NW',
+        'postalCode': '20005',
+        'state': 'D.C.'
       }
     },
     {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-75.29126430328088, 2.931872218949569]
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.049766,
+          38.900772
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(202) 507-8357',
+        'phone': '2025078357',
+        'address': '2221 I St NW',
+        'city': 'Washington DC',
+        'country': 'United States',
+        'crossStreet': 'at 22nd St NW',
+        'postalCode': '20037',
+        'state': 'D.C.'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.043929,
+          38.910525
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(202) 387-9338',
+        'phone': '2023879338',
+        'address': '1512 Connecticut Ave NW',
+        'city': 'Washington DC',
+        'country': 'United States',
+        'crossStreet': 'at Dupont Circle',
+        'postalCode': '20036',
+        'state': 'D.C.'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.0672,
+          38.90516896
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(202) 337-9338',
+        'phone': '2023379338',
+        'address': '3333 M St NW',
+        'city': 'Washington DC',
+        'country': 'United States',
+        'crossStreet': 'at 34th St NW',
+        'postalCode': '20007',
+        'state': 'D.C.'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.002583742142,
+          38.887041080933
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(202) 547-9338',
+        'phone': '2025479338',
+        'address': '221 Pennsylvania Ave SE',
+        'city': 'Washington DC',
+        'country': 'United States',
+        'crossStreet': 'btwn 2nd & 3rd Sts. SE',
+        'postalCode': '20003',
+        'state': 'D.C.'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -76.933492720127,
+          38.99225245786
+        ]
+      },
+      'properties': {
+        'address': '8204 Baltimore Ave',
+        'city': 'College Park',
+        'country': 'United States',
+        'postalCode': '20740',
+        'state': 'MD'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.097083330154,
+          38.980979
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(301) 654-7336',
+        'phone': '3016547336',
+        'address': '4831 Bethesda Ave',
+        'cc': 'US',
+        'city': 'Bethesda',
+        'country': 'United States',
+        'postalCode': '20814',
+        'state': 'MD'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.359425054188,
+          38.958058116661
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(571) 203-0082',
+        'phone': '5712030082',
+        'address': '11935 Democracy Dr',
+        'city': 'Reston',
+        'country': 'United States',
+        'crossStreet': 'btw Explorer & Library',
+        'postalCode': '20190',
+        'state': 'VA'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.10853099823,
+          38.880100922392
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(703) 522-2016',
+        'phone': '7035222016',
+        'address': '4075 Wilson Blvd',
+        'city': 'Arlington',
+        'country': 'United States',
+        'crossStreet': 'at N Randolph St.',
+        'postalCode': '22203',
+        'state': 'VA'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -75.28784,
+          40.008008
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(610) 642-9400',
+        'phone': '6106429400',
+        'address': '68 Coulter Ave',
+        'city': 'Ardmore',
+        'country': 'United States',
+        'postalCode': '19003',
+        'state': 'PA'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -75.20121216774,
+          39.954030175164
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(215) 386-1365',
+        'phone': '2153861365',
+        'address': '3925 Walnut St',
+        'city': 'Philadelphia',
+        'country': 'United States',
+        'postalCode': '19104',
+        'state': 'PA'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          -77.043959498405,
+          38.903883387232
+        ]
+      },
+      'properties': {
+        'phoneFormatted': '(202) 331-3355',
+        'phone': '2023313355',
+        'address': '1901 L St. NW',
+        'city': 'Washington DC',
+        'country': 'United States',
+        'crossStreet': 'at 19th St',
+        'postalCode': '20036',
+        'state': 'D.C.'
       }
     }
   ]
 };
 
-const layerStyle: CircleLayer = {
-  id: 'point',
-  type: 'circle',
-  paint: {
-    'circle-radius': 10,
-    'circle-color': '#007cbf'
-  }
-};
+// const layerStyle: CircleLayer = {
+//   id: 'point',
+//   type: 'circle',
+//   paint: {
+//     'circle-radius': 10,
+//     'circle-color': '#007cbf'
+//   }
+// };
+
+mapboxgl.accessToken = 'pk.eyJ1IjoidGhpc2FuZGVyc29uIiwiYSI6ImNsbGw5c2hjZDIxYW8zcmxndXF2MmtvbmEifQ.kxiyFA4JSmXwbErD1l8B0w';
 
 const Index: React.FC = () => {
   const [showPopup, setShowPopup] = useState<boolean>(true);
 
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const [lng, setLng] = useState(-70.9);
+  const [lat, setLat] = useState(42.35);
+  const [zoom, setZoom] = useState(9);
+
+  useEffect(() => {
+    // initialize map only once
+    if (map.current) {
+      return;
+    }
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      center: [lng, lat],
+      zoom: zoom
+    });
+
+    map.current.setStyle('mapbox://styles/thisanderson/clrviairg011p01pb91fo9n82');
+
+    map.current.on('move', () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(2));
+    });
+  });
+
   return (
     <main className="">
       <h2>Página mapa</h2>
-
-      <Map
-        mapboxAccessToken='pk.eyJ1IjoidGhpc2FuZGVyc29uIiwiYSI6ImNsbGw5c2hjZDIxYW8zcmxndXF2MmtvbmEifQ.kxiyFA4JSmXwbErD1l8B0w'
-        mapStyle="mapbox://styles/mapbox/navigation-night-v1"
-        initialViewState={{
-          longitude: -100,
-          latitude: 40,
-          zoom: 3.5
-        }}
-        style={{
-          height: '90vh',
-          width: '90vw'
-        }}
-
-        // containerStyle={{
-        //
-        // }}
-      >
-        {/* <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}> */}
-        <Popup
-          style={{
-            width: '200px',
-            borderRadius: '12px'
-          }}
-          longitude={-75.261169918095}
-          latitude={2.903822043168672}
-          anchor="bottom"
-          onClose={() => setShowPopup(false)}
-        >
-              Mi casa xd
-        </Popup>
-        <Marker latitude={2.9187317820715823} longitude={ -75.28559037575893 } anchor="center">
-          <div style={{position: 'relative'}}>
-            <span style={{
-              display: 'block',
-              width: '20px',
-              fontWeight: 'bold',
-              fontSize: '30px',
-              position: 'absolute',
-              bottom: '-10px',
-              left: 0,
-              right: 0,
-              margin: 'auto',
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}>V</span>
-            <img style={{
-              position: 'absolute',
-              top: -20
-            }} src="https://usagif.com/wp-content/uploads/gif/confetti-25.gif" alt="" width={120}/>
-            <img
-              style={{borderRadius: '20px'}}
-              src="https://i.pinimg.com/236x/9d/ba/a5/9dbaa5fc9cd78a13533728dc66c0d37e--san-juan-book-jacket.jpg"
-              alt=""
-              width={120}
-            />
-          </div>
-        </Marker>
-        <Marker latitude={2.931872218949569} longitude={ -75.29126430328088 } anchor="bottom" >
-          <div style={{position: 'relative'}}>
-            <img
-              style={{borderRadius: '20px'}}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhusGfK5vfU1m-M0o0xI5nfiq3_XlYjW0wZSkCk7CrnsmVyHe3JETNG_O27gqCrYgn9vI&usqp=CAU"
-              alt=""
-              width={120}
-            />
-          </div>
-        </Marker>
-        <GeolocateControl />
-        <Source id="my-data" type="geojson" data={geojson}>
-          <Layer {...layerStyle} />
-        </Source>
-        <Layer {...parkLayer} />
-        {/* </Layer> */}
-      </Map>
+      <div>
+        <div className={styles.sidebar}>
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
+        <div ref={mapContainer} className={styles.mapContainer} />
+      </div>
     </main>
   );
 };
